@@ -5,8 +5,11 @@
 import React from 'react';
 import './SeriesTitle.css';
 
-const SeriesTitle = ({ name }) => (
-  <h1 className="series-title">{name}</h1>
+const SeriesTitle = ({ seriesName }) => (
+  <div>
+    <h1 className="page-title">Random Episode</h1>
+    <h2 className="page-subtitle">{seriesName}</h2>
+  </div>
 );
 
 export default SeriesTitle;

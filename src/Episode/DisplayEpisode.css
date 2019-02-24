@@ -1,12 +1,12 @@
 #episode-container {
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 2em);
   max-width: 660px;
   margin-left: auto;
   margin-right: auto;
   padding: 1.75em;
   display: grid;
-  grid-template-rows: 5em 2fr 5em;
+  grid-template-rows: 2fr 5em;
   align-items: center;
   margin-top: 2em;
   background-color: white;
@@ -24,23 +24,19 @@
 }
 
 .buttons-bar a:last-of-type {
-  margin-left: 2em;
+  margin-left: 1em;
 }
 
 @media only screen and (max-width: 560px) {
   #episode-container {
-    grid-template-rows: 4em 2fr 4em;
-    margin-top: 0.3em;
-    margin-bottom: 0.2em;
-    background: none;
+    grid-template-rows: 2fr 4em;
+    margin: 1em;
     box-shadow: none;
   }
 }
 
 @media only screen and (max-width: 321px) {
   #episode-container {
-    margin-top: 0.2em;
-    padding-top: 0.75em;
-    grid-template-rows: 3em 2fr 3em;
+    grid-template-rows: 2fr 3em;
   }
 }

@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import './DisplayEpisode.css';
 import EpisodeImage from './EpisodeImage/EpisodeImage';
-import SeriesTitle from './SeriesTitle/SeriesTitle';
 import EpisodeDetails from './EpisodeDetails/EpisodeDetails';
 import RandomEpNumGenerator, { RandomNetflixIdGenerator } from './RandomEpGenerator/RandomEpGenerator';
 import Button from '../Button/Button';
@@ -82,7 +81,6 @@ class DisplayEpisode extends Component {
       }
     }
     // TODO: change with data fetched from specific episode
-    const seriesName = 'Friends';
     const epName = 'The One Where Ross Hugs Rachel';
     const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
     Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`;
@@ -91,10 +89,6 @@ class DisplayEpisode extends Component {
     return (
       <div id="episode-container">
         <div>
-          <SeriesTitle name={seriesName} />
-        </div>
-        <div>
-          {/* <p className="helper-text">Your random episode is:</p> */}
           <EpisodeImage imgUrl="https://m.media-amazon.com/images/M/MV5BMjAzMDI0MjY4MV5BMl5BanBnXkFtZTgwNTg2MzE1NTE@._V1_.jpg" />
           <EpisodeDetails epName={epName} epSummary={epSummary} />
         </div>

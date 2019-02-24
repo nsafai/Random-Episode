@@ -6,20 +6,21 @@ import React, { Component } from 'react';
 import './App.css';
 // const fetch = require('node-fetch');
 import NavBar from './NavBar/NavBar';
+import SeriesTitle from './SeriesTitle/SeriesTitle';
 import DisplayEpisode from './Episode/DisplayEpisode';
-
-const seriesName = 'Friends';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.seriesName = 'Friends';
   }
 
   render() {
     return (
       <div className="App">
         <NavBar />
-        <DisplayEpisode name={seriesName} />
+        <SeriesTitle seriesName={this.seriesName} />
+        <DisplayEpisode />
       </div>
     );
   }
