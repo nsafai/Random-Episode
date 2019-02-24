@@ -11,6 +11,7 @@ const EpisodeDetails = ({
 }) => (
   <div className="epDetails">
     <h1 className="epName">{epName}</h1>
+    <p className="epSeasonEpisode">Season 2, Episode 5</p>
     <p className="epSummary">{epSummary}</p>
   </div>
 );

@@ -4,4 +4,15 @@
 
 .epName {
   font-size: 2em;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
+}
+
+.epSeasonEpisode {
+  margin: 0;
+  color: #4c6565;
+}
+
+.epSummary {
+  margin-top: 0.6em;
 }

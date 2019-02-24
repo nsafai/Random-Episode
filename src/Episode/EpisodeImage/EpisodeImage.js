@@ -6,7 +6,9 @@ import React from 'react';
 import './EpisodeImage.css';
 
 const EpisodeImage = ({ imgUrl }) => (
-  <img className="episode-image" src={imgUrl} alt="episode preview image" />
+  <div className="image-container">
+    <img className="episode-image" src={imgUrl} alt="episode preview image" />
+  </div>
 );
 
 export default EpisodeImage;

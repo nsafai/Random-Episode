@@ -20,14 +20,15 @@ const randomEpUrl = netflixUrl.concat(randomEpNum);
 
 const DisplayEpisode = ({
   name,
-  epName = 'The one where',
-  epSummary = 'this is the one where joey and rachel bla bla bla',
+  epName = 'The One Where Ross Hugs Rachel',
+  epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
+  Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`,
 }) => (
   <div id="episode-container">
     <SeriesTitle name={name} />
     <div>
       <p className="helper-text">Your random episode is:</p>
-      <EpisodeImage imgUrl="https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/11/22/12/friends.jpg" />
+      <EpisodeImage imgUrl="https://m.media-amazon.com/images/M/MV5BMjAzMDI0MjY4MV5BMl5BanBnXkFtZTgwNTg2MzE1NTE@._V1_.jpg" />
       <EpisodeDetails epName={epName} epSummary={epSummary} />
     </div>
     <div className="buttons-bar">
