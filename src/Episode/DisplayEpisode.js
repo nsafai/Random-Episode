@@ -6,10 +6,23 @@ import './DisplayEpisode.css';
 import EpisodeImage from './EpisodeImage/EpisodeImage';
 import SeriesTitle from './SeriesTitle/SeriesTitle';
 import EpisodeDetails from './EpisodeDetails/EpisodeDetails';
-import { RandomEpGenerator } from './RandomEpGenerator/RandomEpGenerator';
+import { RandomEpNumGenerator, GetSeason } from './RandomEpGenerator/RandomEpGenerator';
 import Button from '../Button/Button';
 
-const episodeUrl = RandomEpGenerator(70274045);
+// hard-coded to Friends for MVP
+const baseNetflixID = 70273997;
+const totalNumEpisodes = 236;
+
+// generate random episode number
+const randomEpNum = RandomEpNumGenerator(baseNetflixID, totalNumEpisodes);
+const netflixUrl = 'https://www.netflix.com/watch/';
+const randomEpUrl = netflixUrl.concat(randomEpNum);
+
+// hard-coded number of episodes per season of Friends for MVP
+// const episodesPerSeason = [24, 24, 25, 24, 24, 25, 24, 24, 24, 18];
+// const season = GetSeason(episodesPerSeason);
+// let season = 1;
+// let episode = baseNetflixID
 
 const DisplayEpisode = ({
   name,
@@ -23,8 +36,8 @@ const DisplayEpisode = ({
       <EpisodeDetails epName={epName} epSummary={epSummary} />
     </div>
     <div className="buttons-bar">
-      <Button url={episodeUrl} text="Watch on Netflix" color="#c52525" />
-      <Button url="/" text="New Episode" />
+      <Button url={randomEpUrl} text="Watch on Netflix" color="#c52525" />
+      <Button url="/" text="Another Episode" />
     </div>
   </div>
 );

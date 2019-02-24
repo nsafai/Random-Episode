@@ -3,13 +3,15 @@
 /* eslint-disable react/prop-types */
 // import React from 'react';
 
-export const RandomEpGenerator = (seriesBaseURLNum) => {
-  const netflixUrl = 'https://www.netflix.com/watch/';
-  const randomEpNum = parseInt(seriesBaseURLNum, 10) + 1;
-  const randomEpUrl = netflixUrl.concat(randomEpNum);
-  // const numEpsodes = 230;
-
-  return randomEpUrl;
+export const RandomEpNumGenerator = (baseNetflixID, totalNumEpisodes) => {
+  // generates a random number between 0 and (totalNumEpisodes - 1) inclusive of bounds.
+  const randomOffset = Math.floor(Math.random() * totalNumEpisodes);
+  // grab base URL of netflix
+  const randomEpNum = parseInt(baseNetflixID, 10) + randomOffset;
+  return randomEpNum;
 };
 
-export default RandomEpGenerator;
+export const GetSeason = (randomEpNum) => {
+  let season = 1;
+  return season;
+}
