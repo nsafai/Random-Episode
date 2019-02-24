@@ -81,6 +81,7 @@ class DisplayEpisode extends Component {
       }
     }
     // TODO: change with data fetched from specific episode
+    // const epQuery = `https://api.themoviedb.org/3/tv/1668/season/1/episode/6?api_key=${MOVIEDB_API_KEY}&language=en-US`
     const epName = 'The One Where Ross Hugs Rachel';
     const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
     Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`;
