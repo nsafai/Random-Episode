@@ -8,9 +8,9 @@ import './NavBar.css';
 const NavBar = () => (
   <nav>
     <ul>
-      <li className="brand" style={{ float: 'left' }}>
-        <img className="logo" src="./img/RandomLogo.png" alt="weblogo" />
-        <a href="/">
+      <li style={{ float: 'left' }}>
+        <a className="brand" href="/">
+          <img className="logo" src="./img/RandomLogo.png" alt="weblogo" />
           Random
           <br />
           Episode

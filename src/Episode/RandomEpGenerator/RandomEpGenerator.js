@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 // import React from 'react';
 
-export const RandomEpNumGenerator = (baseNetflixID, totalNumEpisodes) => {
+const RandomEpNumGenerator = (baseNetflixID, totalNumEpisodes) => {
   // generates a random number between 0 and (totalNumEpisodes - 1) inclusive of bounds.
   const randomOffset = Math.floor(Math.random() * totalNumEpisodes);
   // grab base URL of netflix
@@ -11,7 +11,4 @@ export const RandomEpNumGenerator = (baseNetflixID, totalNumEpisodes) => {
   return randomEpNum;
 };
 
-export const GetSeason = (randomEpNum) => {
-  let season = 1;
-  return season;
-}
+export default RandomEpNumGenerator;
