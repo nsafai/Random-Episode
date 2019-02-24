@@ -5,10 +5,7 @@ import './App.css';
 import NavBar from './NavBar/NavBar';
 import DisplayEpisode from './Episode/DisplayEpisode';
 
-// const omdb = require('omdb');
-
 const seriesName = 'Friends';
-// const OMDB_API_KEY = process.env.REACT_APP_OMDB_KEY; // Your API key.
 const MOVIEDB_API_KEY = process.env.REACT_APP_MOVIEDB_KEY;
 console.log(MOVIEDB_API_KEY);
 
