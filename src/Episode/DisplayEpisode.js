@@ -17,6 +17,7 @@ class DisplayEpisode extends Component {
   constructor(props) {
     super(props);
     this.movieDbId = 1668;
+    // https://developers.themoviedb.org/3/find/find-by-id
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
 
     this.state = {
@@ -81,6 +82,7 @@ class DisplayEpisode extends Component {
       }
     }
     // TODO: change with data fetched from specific episode
+    // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
     // const epQuery = `https://api.themoviedb.org/3/tv/1668/season/1/episode/6?api_key=${MOVIEDB_API_KEY}&language=en-US`
     const epName = 'The One Where Ross Hugs Rachel';
     const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
