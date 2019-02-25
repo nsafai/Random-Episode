@@ -16,7 +16,7 @@ const MOVIEDB_API_KEY = process.env.REACT_APP_MOVIEDB_KEY;
 class DisplayEpisode extends Component {
   constructor(props) {
     super(props);
-    this.movieDbId = 1668;
+    this.movieDbId = 1668; // hard-coded to Friends for MVP
     // https://developers.themoviedb.org/3/find/find-by-id
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
 
@@ -59,7 +59,7 @@ class DisplayEpisode extends Component {
                 const season = s + 1;
                 const episode = e + 1;
                 // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
-                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`
+                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
                 fetch(epQuery)
                   .then(res => res.json())
                   .then((epData) => {
@@ -75,10 +75,10 @@ class DisplayEpisode extends Component {
                       randomEpUrl,
                     });
                   })
-                  .catch((error) => {
+                  .catch((errFetchingEpData) => {
                     this.setState({ });
                     console.log('-- Error fetching --');
-                    console.log(error);
+                    console.log(errFetchingEpData);
                   });
                 break;
               }
@@ -86,10 +86,10 @@ class DisplayEpisode extends Component {
           }
         }
       })
-      .catch((err) => {
+      .catch((errFetchingSeriesData) => {
         this.setState({ });
         console.log('-- Error fetching --');
-        console.log(err);
+        console.log(errFetchingSeriesData);
       });
   }
 
