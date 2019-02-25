@@ -50,14 +50,14 @@ class DisplayEpisode extends Component {
         }
         let epAccumulator = randomEpNum;
         if (epsPerSeason !== undefined) {
-          for (let s = 0; s < epsPerSeason.length; s += 1) {
-            for (let e = 0; e < epsPerSeason[s]; e += 1) {
+          for (let s = 1; s <= epsPerSeason.length; s += 1) {
+            for (let e = 1; e <= epsPerSeason[s]; e += 1) {
               epAccumulator -= 1; // TODO: stop decrementing epAcculumator after reaches 0
               console.log(epAccumulator);
               if (epAccumulator === 0) {
                 // found correct season and episode
-                const season = s + 1;
-                const episode = e + 1;
+                const season = s;
+                const episode = e;
                 // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
                 const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
                 fetch(epQuery)
