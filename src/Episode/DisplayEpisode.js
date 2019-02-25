@@ -77,8 +77,7 @@ class DisplayEpisode extends Component {
                   })
                   .catch((errFetchingEpData) => {
                     this.setState({ });
-                    console.log('-- Error fetching --');
-                    console.log(errFetchingEpData);
+                    console.log('-- Error fetching --', errFetchingEpData);
                   });
                 break;
               }
@@ -88,8 +87,7 @@ class DisplayEpisode extends Component {
       })
       .catch((errFetchingSeriesData) => {
         this.setState({ });
-        console.log('-- Error fetching --');
-        console.log(errFetchingSeriesData);
+        console.log('-- Error fetching --', errFetchingSeriesData);
       });
   }
 
