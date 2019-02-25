@@ -1,4 +1,4 @@
-# Random-Episode
+# Random (Netflix) Episode
 A React website that generates and links a random Netflix episode of the series of your choice, thereby eliminating indecision paralysis. 
 
 ## How to try it
