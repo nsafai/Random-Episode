@@ -2,7 +2,7 @@
 A React website that generates and links a random Netflix episode of the series of your choice, thereby eliminating indecision paralysis. 
 
 ## Technologies
-React.js, JSX, JavaScript, OMDB API
+React.js, JSX, JavaScript, MovieDB API
 
 ## Milestones
 - [x] Feb 19: Choose idea
