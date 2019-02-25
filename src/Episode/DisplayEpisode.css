@@ -9,6 +9,7 @@
   grid-template-rows: 2fr 5em;
   align-items: center;
   margin-top: 1.5em;
+  margin-bottom: 1.5em;
   background-color: white;
   box-shadow: 2px 3px 10px -3px rgba(0, 0, 0, 0.3);
 }
