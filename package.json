@@ -8,7 +8,7 @@
     "path": "^0.12.7",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5",
+    "react-scripts": "2.1.3",
     "typescript": "^3.3.3333"
   },
   "scripts": {
@@ -27,7 +27,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "heroku-run-build-script": true
 }

@@ -37,3 +37,4 @@ React.js, JSX, JavaScript, MovieDB API
 - [ ] The Office
 - [ ] How I met your mother
 - [ ] Gilmore Girls
+- [ ] Parks and Rec
