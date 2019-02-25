@@ -36,3 +36,8 @@ React.js, JSX, JavaScript, MovieDB API
 ## Credits
 - The concept for finding the URL for the episode on netflix was inspired by [ blog article](https://techroose.com/tech/episodeGenerator.html)
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+
+## Other shows to add (by request)
+- [ ] The Office
+- [ ] How I met your mother
+- [ ] Gilmore Girls
