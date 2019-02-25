@@ -21,72 +21,76 @@ class DisplayEpisode extends Component {
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
 
     this.state = {
-      // used to hold data from OMDB API
-      numEpisodes: [],
-      seasons: [],
-      // episodeData: [],
+      epName: '',
+      epSummary: '',
+      randomEpUrl: '',
     };
   }
 
   componentWillMount() {
     fetch(this.seriesQuery)
       .then(res => res.json())
-      .then((json) => {
-        const epsPerSeason = [];
-        const numEpisodes = json.number_of_episodes;
+      .then((seriesJson) => {
+        // baseNetflixId is hard-coded to Friends for MVP
+        const baseNetflixID = 70273996;
+        const numEpisodes = seriesJson.number_of_episodes;
 
-        for (let i = 1; i < json.seasons.length; i += 1) {
-          epsPerSeason.push(json.seasons[i].episode_count);
+        // generate random episode number
+        const randomEpNum = RandomEpNumGenerator(numEpisodes);
+        const randomNetflixId = RandomNetflixIdGenerator(baseNetflixID, randomEpNum);
+        const netflixUrl = 'https://www.netflix.com/watch/';
+        const randomEpUrl = netflixUrl.concat(randomNetflixId);
+
+        // Figure out season and episode number
+        const epsPerSeason = [];
+        for (let i = 1; i < seriesJson.seasons.length; i += 1) {
+          epsPerSeason.push(seriesJson.seasons[i].episode_count);
+        }
+        let epAccumulator = randomEpNum;
+        if (epsPerSeason !== undefined) {
+          for (let s = 0; s < epsPerSeason.length; s += 1) {
+            for (let e = 0; e < epsPerSeason[s]; e += 1) {
+              epAccumulator -= 1;
+              if (epAccumulator === 0) {
+                // found correct season and episode
+                console.log('Season: ', s + 1, ' Episode ', e + 1);
+                const season = s + 1;
+                const episode = e + 1;
+                // TODO: stop decrementing epAcculumator
+                // TODO: change with data fetched from specific episode
+                // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
+                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`
+                fetch(epQuery)
+                  .then(res => res.json())
+                  .then((epData) => {
+                    console.log(epData);
+                  });
+                const epName = 'The One Where Ross Hugs Rachel';
+                const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
+                Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`;
+                // add episode data to component state
+                this.setState({
+                  epName,
+                  epSummary,
+                  randomEpUrl,
+                });
+                break;
+              }
+            }
+          }
         }
 
-        this.setState({
-          numEpisodes,
-          epsPerSeason,
-        });
         console.log(json);
       })
       .catch((err) => {
-        this.setState({ seriesData: [] });
+        this.setState({ });
         console.log('-- Error fetching --');
         console.log(err);
       });
   }
 
   render() {
-    const { numEpisodes, epsPerSeason } = this.state;
-
-    // baseNetflixId is hard-coded to Friends for MVP
-    const baseNetflixID = 70273996;
-
-    // generate random episode number
-    const randomEpNum = RandomEpNumGenerator(numEpisodes);
-    const randomNetflixId = RandomNetflixIdGenerator(baseNetflixID, randomEpNum);
-    const netflixUrl = 'https://www.netflix.com/watch/';
-    const randomEpUrl = netflixUrl.concat(randomNetflixId);
-
-    // Figure out season and episode number
-    let epAccumulator = randomEpNum;
-    // console.log(epsPerSeason);
-    if (epsPerSeason !== undefined) {
-      for (let s = 0; s < epsPerSeason.length; s += 1) {
-        console.log(epsPerSeason[s]);
-        console.log(epAccumulator);
-        for (let e = 0; e < epsPerSeason[s]; e += 1) {
-          console.log(epAccumulator);
-          epAccumulator -= 1;
-          if (epAccumulator === 0) {
-            console.log('season ', s + 1, ' episode ', e + 1);
-            break;
-          }
-        }
-      }
-    }
-    // TODO: change with data fetched from specific episode
-    // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
-    // const epQuery = `https://api.themoviedb.org/3/tv/1668/season/1/episode/6?api_key=${MOVIEDB_API_KEY}&language=en-US`
-    const epName = 'The One Where Ross Hugs Rachel';
-    const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
-    Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`;
+    const { epName, epSummary, randomEpUrl } = this.state;
 
     // render components
     return (
