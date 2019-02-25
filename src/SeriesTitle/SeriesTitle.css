@@ -1,7 +1,7 @@
 .page-title {
   font-size: 2em;
   text-align: center;
-  margin-top: 2em;
+  margin-top: 1.25em;
   margin-bottom: 0.5em;
 }
 
@@ -16,7 +16,7 @@
 
 @media only screen and (max-width: 560px) {
   .page-title {
-    margin-top: 1em;
+    margin-top: 0.75em;
     margin-bottom: 0.25em;
   }
 

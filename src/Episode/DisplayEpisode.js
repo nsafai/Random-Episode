@@ -23,6 +23,8 @@ class DisplayEpisode extends Component {
     this.state = {
       epName: '',
       epSummary: '',
+      epImgUrl: '',
+      seasAndEp: '',
       randomEpUrl: '',
     };
   }
@@ -50,37 +52,39 @@ class DisplayEpisode extends Component {
         if (epsPerSeason !== undefined) {
           for (let s = 0; s < epsPerSeason.length; s += 1) {
             for (let e = 0; e < epsPerSeason[s]; e += 1) {
-              epAccumulator -= 1;
+              epAccumulator -= 1; // TODO: stop decrementing epAcculumator after reaches 0
+              console.log(epAccumulator);
               if (epAccumulator === 0) {
                 // found correct season and episode
-                console.log('Season: ', s + 1, ' Episode ', e + 1);
                 const season = s + 1;
                 const episode = e + 1;
-                // TODO: stop decrementing epAcculumator
-                // TODO: change with data fetched from specific episode
                 // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
                 const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`
                 fetch(epQuery)
                   .then(res => res.json())
                   .then((epData) => {
-                    console.log(epData);
+                    const epName = epData.name;
+                    const epSummary = epData.overview;
+                    const epImgUrl = `https://image.tmdb.org/t/p/original/${epData.still_path}`;
+                    const seasAndEp = `Season ${season}, Episode ${episode}`;
+                    this.setState({
+                      epName,
+                      epSummary,
+                      epImgUrl,
+                      seasAndEp,
+                      randomEpUrl,
+                    });
+                  })
+                  .catch((error) => {
+                    this.setState({ });
+                    console.log('-- Error fetching --');
+                    console.log(error);
                   });
-                const epName = 'The One Where Ross Hugs Rachel';
-                const epSummary = `Monica and Chandler try to tell Rachel and Joey that they're moving in together. 
-                Phoebe thinks that Ross didn't get the annulment because he still loves Rachel.`;
-                // add episode data to component state
-                this.setState({
-                  epName,
-                  epSummary,
-                  randomEpUrl,
-                });
                 break;
               }
             }
           }
         }
-
-        console.log(json);
       })
       .catch((err) => {
         this.setState({ });
@@ -90,14 +94,14 @@ class DisplayEpisode extends Component {
   }
 
   render() {
-    const { epName, epSummary, randomEpUrl } = this.state;
+    const { epName, epSummary, epImgUrl, seasAndEp, randomEpUrl } = this.state;
 
     // render components
     return (
       <div id="episode-container">
         <div>
-          <EpisodeImage imgUrl="https://m.media-amazon.com/images/M/MV5BMjAzMDI0MjY4MV5BMl5BanBnXkFtZTgwNTg2MzE1NTE@._V1_.jpg" />
-          <EpisodeDetails epName={epName} epSummary={epSummary} />
+          <EpisodeImage imgUrl={epImgUrl} />
+          <EpisodeDetails epName={epName} seasAndEp={seasAndEp} epSummary={epSummary} />
         </div>
         <div className="buttons-bar">
           <Button url={randomEpUrl} text="Watch on Netflix" color="#c52525" />

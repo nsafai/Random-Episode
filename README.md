@@ -9,7 +9,7 @@ React.js, JSX, JavaScript, OMDB API
 - [x] Feb 20: Wireframes
 - [x] Feb 25: Episode component
 - [x] Feb 26: Watch + New Episode button
-- [ ] Mar 1: Stretch goal: integrate with MovieDB and pull episode data like Img
+- [x] Mar 1: Stretch goal: integrate with MovieDB and pull episode data like Img
 - [ ] Mar 3: Launched live
 
 ## Available Scripts

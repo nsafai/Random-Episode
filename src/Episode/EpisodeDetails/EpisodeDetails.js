@@ -7,11 +7,12 @@ import './EpisodeDetails.css';
 
 const EpisodeDetails = ({
   epName,
+  seasAndEp,
   epSummary,
 }) => (
   <div className="epDetails">
     <h1 className="epName">{epName}</h1>
-    <p className="epSeasonEpisode">Season 2, Episode 5</p>
+    <p className="epSeasonEpisode">{seasAndEp}</p>
     <p className="epSummary">{epSummary}</p>
   </div>
 );
