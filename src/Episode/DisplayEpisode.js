@@ -7,18 +7,21 @@ import React, { Component } from 'react';
 import './DisplayEpisode.css';
 import EpisodeImage from './EpisodeImage/EpisodeImage';
 import EpisodeDetails from './EpisodeDetails/EpisodeDetails';
-import RandomEpNumGenerator, { RandomNetflixIdGenerator } from './RandomEpGenerator/RandomEpGenerator';
+import GenerateRandomEpNum, { GenerateRandomNetflixId } from './RandomEpGenerator/RandomEpGenerator';
 import Button from '../Button/Button';
 
 // MOVIE_DB_SETUP
 const MOVIEDB_API_KEY = process.env.REACT_APP_MOVIEDB_KEY;
 
+// series specific variables 
+const baseNetflixID = 70273996; // hard-coded to Friends for MVP
+const movieDbId = 1668; // hard-coded to Friends for MVP
+// seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
+const seriesQuery = `https://api.themoviedb.org/3/tv/${movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
+
 class DisplayEpisode extends Component {
   constructor(props) {
     super(props);
-    this.movieDbId = 1668; // hard-coded to Friends for MVP
-    // https://developers.themoviedb.org/3/find/find-by-id
-    this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
 
     this.state = {
       epName: '',
@@ -29,20 +32,22 @@ class DisplayEpisode extends Component {
     };
   }
 
-  componentWillMount() {
-    fetch(this.seriesQuery)
+  getEpUrl(randomEpNum) {
+    // generate random episode number
+    const randomNetflixId = GenerateRandomNetflixId(baseNetflixID, randomEpNum);
+    const netflixUrl = 'https://www.netflix.com/watch/';
+    const randomEpUrl = netflixUrl.concat(randomNetflixId);
+    return randomEpUrl;
+  }
+
+  fetchSeriesData(baseNetflixID, seriesQuery) {
+    fetch(seriesQuery)
       .then(res => res.json())
       .then((seriesJson) => {
-        // baseNetflixId is hard-coded to Friends for MVP
-        const baseNetflixID = 70273996;
-        const numEpisodes = seriesJson.number_of_episodes;
-
-        // generate random episode number
-        const randomEpNum = RandomEpNumGenerator(numEpisodes);
-        const randomNetflixId = RandomNetflixIdGenerator(baseNetflixID, randomEpNum);
-        const netflixUrl = 'https://www.netflix.com/watch/';
-        const randomEpUrl = netflixUrl.concat(randomNetflixId);
-
+        console.log('HERE', seriesJson);
+        const totalNumEpisodes = seriesJson.number_of_episodes;
+        const randomEpNum = GenerateRandomEpNum(totalNumEpisodes);
+        const randomEpUrl = this.getEpUrl(randomEpNum);
         // Figure out season and episode number
         const epsPerSeason = [];
         for (let i = 1; i < seriesJson.seasons.length; i += 1) {
@@ -55,31 +60,12 @@ class DisplayEpisode extends Component {
               epAccumulator -= 1; // TODO: stop decrementing epAcculumator after reaches 0
               console.log(epAccumulator);
               if (epAccumulator === 0) {
-                // found correct season and episode
-                const season = s;
-                const episode = e;
-                // https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
-                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${season}/episode/${episode}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
-                fetch(epQuery)
-                  .then(res => res.json())
-                  .then((epData) => {
-                    const epName = epData.name;
-                    const epSummary = epData.overview;
-                    const epImgUrl = `https://image.tmdb.org/t/p/original/${epData.still_path}`;
-                    const seasAndEp = `Season ${season}, Episode ${episode}`;
-                    this.setState({
-                      epName,
-                      epSummary,
-                      epImgUrl,
-                      seasAndEp,
-                      randomEpUrl,
-                    });
-                  })
-                  .catch((errFetchingEpData) => {
-                    this.setState({ });
-                    console.log('-- Error fetching --', errFetchingEpData);
-                  });
-                break;
+                // found correct season and episode, save that into a seriesData object along with url to episode
+                let seriesData = { season: s, episode: e, randomEpUrl }
+                console.log('series data is: ', seriesData);
+                // epQuery syntax comes from https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
+                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${s}/episode/${e}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
+                this.fetchEpisodeData(epQuery, seriesData)();
               }
             }
           }
@@ -89,6 +75,34 @@ class DisplayEpisode extends Component {
         this.setState({ });
         console.log('-- Error fetching --', errFetchingSeriesData);
       });
+  };
+
+  fetchEpisodeData(epQuery, seriesData) {
+    const {season, episode, randomEpUrl} = seriesData;
+    fetch(epQuery)
+      .then(res => res.json())
+      .then((epData) => {
+        const epName = epData.name;
+        const epSummary = epData.overview;
+        const epImgUrl = `https://image.tmdb.org/t/p/original/${epData.still_path}`;
+
+        // got series data and episode data, add those to component state
+        this.setState({
+          epName,
+          epSummary,
+          epImgUrl,
+          seasAndEp: `Season ${season}, Episode ${episode}`,
+          randomEpUrl,
+        });
+      })
+      .catch((errFetchingEpData) => {
+        this.setState({ });
+        console.log('-- Error fetching --', errFetchingEpData);
+      });
+  }
+
+  componentWillMount() {
+    this.fetchSeriesData(baseNetflixID, seriesQuery);
   }
 
   render() {
