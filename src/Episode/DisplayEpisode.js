@@ -5,6 +5,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import './DisplayEpisode.css';
+import SeriesTitle from './SeriesTitle/SeriesTitle';
 import EpisodeImage from './EpisodeImage/EpisodeImage';
 import EpisodeDetails from './EpisodeDetails/EpisodeDetails';
 import GenerateRandomEpNum, { GenerateRandomNetflixId } from './RandomEpGenerator/RandomEpGenerator';
@@ -16,9 +17,10 @@ const MOVIEDB_API_KEY = process.env.REACT_APP_MOVIEDB_KEY;
 class DisplayEpisode extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     // series specific variables 
-    this.baseNetflixID = 70273996; // hard-coded to Friends for MVP
+    this.baseNetflixID = this.props.baseNetflixID; // hard-coded to Friends for MVP
     this.movieDbId = 1668; // hard-coded to Friends for MVP
     // seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
@@ -27,7 +29,7 @@ class DisplayEpisode extends Component {
       epSummary: '',
       epImgUrl: '',
       seasAndEp: '',
-      randomEpUrl: '',
+      url: '',
     };
     this.getRandomEpisode(this.seriesQuery); // get random episode once on load
   }
@@ -45,7 +47,7 @@ class DisplayEpisode extends Component {
     fetch(seriesQuery)
       .then(res => res.json())
       .then((seriesJson) => {
-        console.log('HERE', seriesJson);
+        console.log('series data: ', seriesJson);
         const totalNumEpisodes = seriesJson.number_of_episodes;
         const randomEpNum = GenerateRandomEpNum(totalNumEpisodes);
         const randomEpUrl = this.getEpUrl(randomEpNum);
@@ -59,15 +61,14 @@ class DisplayEpisode extends Component {
           for (let s = 1; s <= epsPerSeason.length; s += 1) {
             for (let e = 1; e <= epsPerSeason[s]; e += 1) {
               epAccumulator -= 1; // TODO: stop decrementing epAcculumator after reaches 0
-              console.log(epAccumulator);
               if (epAccumulator === 0) {
                 // found correct season and episode, save that into a seriesData object along with url to episode
-                let seriesData = { season: s, episode: e, randomEpUrl }
-                console.log('series data is: ', seriesData);
+                let randomEpData = { season: s, episode: e, url: randomEpUrl }
+                console.log('random episode data: ', randomEpData);
                 // epQuery syntax comes from https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
                 const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${s}/episode/${e}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
                 // now that we have a random episode, get episode metadata, like episode name, image and summary
-                this.fetchEpisodeData(epQuery, seriesData)();
+                this.fetchEpisodeData(epQuery, randomEpData);
               }
             }
           }
@@ -79,8 +80,8 @@ class DisplayEpisode extends Component {
       });
   };
 
-  fetchEpisodeData(epQuery, seriesData) {
-    const {season, episode, randomEpUrl} = seriesData;
+  fetchEpisodeData(epQuery, randomEpData) {
+    const {season, episode, url} = randomEpData;
     fetch(epQuery)
       .then(res => res.json())
       .then((epData) => {
@@ -94,7 +95,7 @@ class DisplayEpisode extends Component {
           epSummary,
           epImgUrl,
           seasAndEp: `Season ${season}, Episode ${episode}`,
-          randomEpUrl,
+          url,
         });
       })
       .catch((errFetchingEpData) => {
@@ -107,18 +108,21 @@ class DisplayEpisode extends Component {
   }
 
   render() {
-    const { epName, epSummary, epImgUrl, seasAndEp, randomEpUrl } = this.state;
+    const { epName, epSummary, epImgUrl, seasAndEp, url } = this.state;
 
     // render components
     return (
-      <div id="episode-container">
-        <div>
-          <EpisodeImage imgUrl={epImgUrl} />
-          <EpisodeDetails epName={epName} seasAndEp={seasAndEp} epSummary={epSummary} />
-        </div>
-        <div className="buttons-bar">
-          <Button url={randomEpUrl} text="Watch on Netflix" color="#c52525" />
-          <Button onClickFunc={() => this.getRandomEpisode(this.seriesQuery)} text="Another Episode" />
+      <div>
+        <SeriesTitle seriesName={this.props.seriesName} />
+        <div id="episode-container">
+          <div>
+            <EpisodeImage imgUrl={epImgUrl} />
+            <EpisodeDetails epName={epName} seasAndEp={seasAndEp} epSummary={epSummary} />
+          </div>
+          <div className="buttons-bar">
+            <Button url={url} text="Watch on Netflix" color="#c52525" />
+            <Button onClickFunc={() => this.getRandomEpisode(this.seriesQuery)} text="Another Episode" />
+          </div>
         </div>
       </div>
     );
