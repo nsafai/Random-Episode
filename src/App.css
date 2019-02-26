@@ -13,6 +13,15 @@ html, body, #root, .App {
   width: 100%;
 }
 
+.series-tiles {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 5vw;
+  box-sizing: border-box;
+  padding: 5vw;
+}
+
 @media only screen and (max-width: 768px) {
   html, body {
     font-size: 16px;

@@ -7,7 +7,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import NavBar from './Components/NavBar/NavBar';
 import DisplayEpisode from './Components/Episode/DisplayEpisode';
-import SeriesTile from './Components/SeriesTile/SeriesTile';
+import SeriesTile from './Components/Series/SeriesTile/SeriesTile';
 import seriesList from './seriesList';
 
 class App extends Component {
@@ -20,18 +20,13 @@ class App extends Component {
   }
 
   render() {
-    const seriesLinks = this.series.map(function (show, i) {
+    const seriesTiles = this.series.map(function (show, i) {
       return (
-        <SeriesTile key={`link-${i}`} url={`/${show.url}`} name={show.name} />
-        // <SeriesTile key={`link-${i}`} {...show} />
-
-        // <Link to={`/${show.url}`} key={`link-${i}`}>
-        //   <button>{show.name}</button>
-        // </Link>
+        <SeriesTile index={i} url={`/${show.url}`} name={show.name} imgUrl={show.imgUrl} />
       )   
     });
 
-    const seriesRoutes = this.series.map(function (show, i) {
+    const randomEpisode = this.series.map(function (show, i) {
       return (
         <Route path={`/${show.url}`} key={`route-${i}`} render={() => (
           <DisplayEpisode 
@@ -51,8 +46,11 @@ class App extends Component {
           <Link to="/" key='home'>
             <button>All Series</button>
           </Link>
-          {seriesLinks}
-          {seriesRoutes}
+          <h1 style={{ textAlign: "center" }}>Choose a series:</h1>
+          <div className="series-tiles">
+            {seriesTiles}
+          </div>
+          {randomEpisode}
         </div>
       </Router>
     );
