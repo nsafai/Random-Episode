@@ -5,40 +5,29 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import NavBar from './NavBar/NavBar';
-import DisplayEpisode from './Episode/DisplayEpisode';
+import NavBar from './Components/NavBar/NavBar';
+import DisplayEpisode from './Components/Episode/DisplayEpisode';
+import SeriesTile from './Components/SeriesTile/SeriesTile';
+import seriesList from './seriesList';
 
 class App extends Component {
   constructor(props) {
     super(props);
     // find baseNetflixId by finding your show in the URL and getting the digits after /watch/xxxxx
     // find movieDbId here: https://developers.themoviedb.org/3/search/search-tv-shows
-    this.series = [
-      {
-        name: 'Friends',
-        url: 'friends',
-        baseNetflixId: '70273996',
-        movieDbId: '1668',
-      }, 
-      {
-        name: 'The Office',
-        url: 'the-office',
-        baseNetflixId: '70069628',
-        movieDbId: '2316',
-      },
-    ];
-  }
 
-  find(url) {
-    this.series.find(p => p.url == url);
+    this.series = seriesList;
   }
 
   render() {
     const seriesLinks = this.series.map(function (show, i) {
       return (
-        <Link to={`/${show.url}`} key={`link-${i}`}>
-          <button>{show.name}</button>
-        </Link>
+        <SeriesTile key={`link-${i}`} url={`/${show.url}`} name={show.name} />
+        // <SeriesTile key={`link-${i}`} {...show} />
+
+        // <Link to={`/${show.url}`} key={`link-${i}`}>
+        //   <button>{show.name}</button>
+        // </Link>
       )   
     });
 
