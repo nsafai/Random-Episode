@@ -65,6 +65,7 @@ class DisplayEpisode extends Component {
                 console.log('series data is: ', seriesData);
                 // epQuery syntax comes from https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
                 const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${s}/episode/${e}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
+                // now that we have a random episode, get episode metadata, like episode name, image and summary
                 this.fetchEpisodeData(epQuery, seriesData)();
               }
             }
