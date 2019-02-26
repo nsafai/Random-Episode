@@ -13,15 +13,15 @@ import Button from '../Button/Button';
 // MOVIE_DB_SETUP
 const MOVIEDB_API_KEY = process.env.REACT_APP_MOVIEDB_KEY;
 
-// series specific variables 
-const baseNetflixID = 70273996; // hard-coded to Friends for MVP
-const movieDbId = 1668; // hard-coded to Friends for MVP
-// seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
-const seriesQuery = `https://api.themoviedb.org/3/tv/${movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
-
 class DisplayEpisode extends Component {
   constructor(props) {
     super(props);
+
+    // series specific variables 
+    this.baseNetflixID = 70273996; // hard-coded to Friends for MVP
+    this.movieDbId = 1668; // hard-coded to Friends for MVP
+    // seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
+    this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
 
     this.state = {
       epName: '',
@@ -34,13 +34,13 @@ class DisplayEpisode extends Component {
 
   getEpUrl(randomEpNum) {
     // generate random episode number
-    const randomNetflixId = GenerateRandomNetflixId(baseNetflixID, randomEpNum);
+    const randomNetflixId = GenerateRandomNetflixId(this.baseNetflixID, randomEpNum);
     const netflixUrl = 'https://www.netflix.com/watch/';
     const randomEpUrl = netflixUrl.concat(randomNetflixId);
     return randomEpUrl;
   }
 
-  fetchSeriesData(baseNetflixID, seriesQuery) {
+  fetchSeriesData(seriesQuery) {
     fetch(seriesQuery)
       .then(res => res.json())
       .then((seriesJson) => {
@@ -103,7 +103,7 @@ class DisplayEpisode extends Component {
   }
 
   componentWillMount() {
-    this.fetchSeriesData(baseNetflixID, seriesQuery);
+    this.fetchSeriesData(this.seriesQuery);
   }
 
   render() {
