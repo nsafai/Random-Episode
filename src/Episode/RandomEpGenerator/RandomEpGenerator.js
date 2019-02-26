@@ -11,7 +11,9 @@ const GenerateRandomEpNum = (totalNumEpisodes) => {
 };
 
 const GenerateRandomNetflixId = (baseNetflixID, randomEpNum) => {
+  console.log('base netflix id: ', baseNetflixID);
   const randomNetflixId = parseInt(baseNetflixID, 10) + randomEpNum;
+  console.log('generated netflix id: ', randomNetflixId);
 
   return randomNetflixId;
 };

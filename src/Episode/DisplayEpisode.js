@@ -20,8 +20,8 @@ class DisplayEpisode extends Component {
     console.log(props);
 
     // series specific variables 
-    this.baseNetflixID = this.props.baseNetflixID; // hard-coded to Friends for MVP
-    this.movieDbId = 1668; // hard-coded to Friends for MVP
+    this.baseNetflixId = this.props.baseNetflixId; // hard-coded to Friends for MVP
+    this.movieDbId = this.props.movieDbId; // hard-coded to Friends for MVP
     // seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
     this.state = {
@@ -36,9 +36,13 @@ class DisplayEpisode extends Component {
 
   getEpUrl(randomEpNum) {
     // generate random episode number
-    const randomNetflixId = GenerateRandomNetflixId(this.baseNetflixID, randomEpNum);
+    console.log('randomEpNum1: ', randomEpNum);
+    console.log('this.baseNetflixId ', this.baseNetflixId);
+    const randomNetflixId = GenerateRandomNetflixId(this.baseNetflixId, randomEpNum);
     const netflixUrl = 'https://www.netflix.com/watch/';
     const randomEpUrl = netflixUrl.concat(randomNetflixId);
+    
+    console.log(randomEpUrl);
     return randomEpUrl;
   }
 
@@ -66,7 +70,7 @@ class DisplayEpisode extends Component {
                 let randomEpData = { season: s, episode: e, url: randomEpUrl }
                 console.log('random episode data: ', randomEpData);
                 // epQuery syntax comes from https://developers.themoviedb.org/3/tv-episodes/get-tv-episode-details
-                const epQuery = `https://api.themoviedb.org/3/tv/1668/season/${s}/episode/${e}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
+                const epQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}/season/${s}/episode/${e}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
                 // now that we have a random episode, get episode metadata, like episode name, image and summary
                 this.fetchEpisodeData(epQuery, randomEpData);
               }

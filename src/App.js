@@ -11,26 +11,49 @@ import DisplayEpisode from './Episode/DisplayEpisode';
 class App extends Component {
   constructor(props) {
     super(props);
+    // find baseNetflixId by finding your show in the URL and getting the digits after /watch/xxxxx
+    // find movieDbId here: https://developers.themoviedb.org/3/search/search-tv-shows
     this.series = [
       {
         name: 'Friends',
         url: 'friends',
+        baseNetflixId: '70273996',
+        movieDbId: '1668',
       }, 
       {
         name: 'The Office',
         url: 'the-office',
+        baseNetflixId: '70069628',
+        movieDbId: '2316',
       },
     ];
   }
 
+  find(url) {
+    this.series.find(p => p.url == url);
+  }
+
   render() {
-    const seriesTiles = this.series.map(function (d, idx) {
+    const seriesLinks = this.series.map(function (show, i) {
       return (
-        <Link to={`/${d.url}`} key={idx}>
-          <button>{d.name}</button>
+        <Link to={`/${show.url}`} key={`link-${i}`}>
+          <button>{show.name}</button>
         </Link>
       )   
     });
+
+    const seriesRoutes = this.series.map(function (show, i) {
+      return (
+        <Route path={`/${show.url}`} key={`route-${i}`} render={() => (
+          <DisplayEpisode 
+            seriesName={show.name}
+            baseNetflixId={show.baseNetflixId}
+            movieDbId={show.movieDbId}
+            key={`show-${i}`}
+          />
+        )}/>
+      )
+    })
 
     return (
       <Router>
@@ -39,12 +62,8 @@ class App extends Component {
           <Link to="/" key='home'>
             <button>All Series</button>
           </Link>
-          {seriesTiles}
-          
-          {/* <Route exact path="/" component={Home}/> */}
-          <Route path="/friends" render={() => (
-            <DisplayEpisode seriesName='Friends' baseNetflixID='70273996' />
-          )}/>
+          {seriesLinks}
+          {seriesRoutes}
         </div>
       </Router>
     );
