@@ -4,8 +4,8 @@
 import React from 'react';
 import './Button.css';
 
-const Button = ({ url = 'http://netflix.com', text = 'button', color = '#054545' }) => (
-  <a className="button" href={url} style={{ backgroundColor: color }} target="_blank" rel="noopener noreferrer">
+const Button = ({ url, onClickFunc, text = 'button', color = '#054545' }) => (
+  <a className="button" href={url} style={{ backgroundColor: color }} onClick={onClickFunc} target="_blank" rel="noopener noreferrer">
     {text}
   </a>
 );

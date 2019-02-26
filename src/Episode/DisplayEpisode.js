@@ -22,7 +22,6 @@ class DisplayEpisode extends Component {
     this.movieDbId = 1668; // hard-coded to Friends for MVP
     // seriesQuery syntax comes from https://developers.themoviedb.org/3/find/find-by-id
     this.seriesQuery = `https://api.themoviedb.org/3/tv/${this.movieDbId}?api_key=${MOVIEDB_API_KEY}&language=en-US`;
-
     this.state = {
       epName: '',
       epSummary: '',
@@ -30,6 +29,7 @@ class DisplayEpisode extends Component {
       seasAndEp: '',
       randomEpUrl: '',
     };
+    this.getRandomEpisode(this.seriesQuery); // get random episode once on load
   }
 
   getEpUrl(randomEpNum) {
@@ -40,7 +40,8 @@ class DisplayEpisode extends Component {
     return randomEpUrl;
   }
 
-  fetchSeriesData(seriesQuery) {
+  getRandomEpisode(seriesQuery) {
+    // first need to fetch some data about series like total amount of episodes.
     fetch(seriesQuery)
       .then(res => res.json())
       .then((seriesJson) => {
@@ -103,7 +104,6 @@ class DisplayEpisode extends Component {
   }
 
   componentWillMount() {
-    this.fetchSeriesData(this.seriesQuery);
   }
 
   render() {
@@ -118,7 +118,7 @@ class DisplayEpisode extends Component {
         </div>
         <div className="buttons-bar">
           <Button url={randomEpUrl} text="Watch on Netflix" color="#c52525" />
-          <Button url="/" text="Another Episode" />
+          <Button onClickFunc={() => this.getRandomEpisode(this.seriesQuery)} text="Another Episode" />
         </div>
       </div>
     );
