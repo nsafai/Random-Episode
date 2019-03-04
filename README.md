@@ -2,7 +2,10 @@
 A React website that generates and links a random Netflix episode of the series of your choice, thereby eliminating indecision paralysis. 
 
 ## How to try it
-The app is now live at: https://random-ep.herokuapp.com/
+The app is now live and you can use it at: [randomnetflix.com](https://www.randomnetflix.com/)
+
+![Screenshot of Random Episode 1](/random-ep-1.png)
+![Screenshot of Random Episode 1](/random-ep-2.png)
 
 ## Technologies
 React.js, JSX, JavaScript, MovieDB API
