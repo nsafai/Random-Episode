@@ -4,8 +4,8 @@ A React website that generates and links a random Netflix episode of the series 
 ## How to try it
 The app is now live and you can use it at: [randomnetflix.com](https://www.randomnetflix.com/)
 
-![Screenshot of Random Episode 1](/random-ep-1.png)
-![Screenshot of Random Episode 1](/random-ep-2.png)
+![Screenshot of Random Episode 1](/public/img/random-ep-1.png)
+![Screenshot of Random Episode 1](/public/img/random-ep-2.png)
 
 ## Technologies
 React.js, JSX, JavaScript, MovieDB API
