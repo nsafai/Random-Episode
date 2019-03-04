@@ -14,7 +14,8 @@ React.js, JSX, JavaScript, MovieDB API
 - [x] Feb 26: Watch + New Episode button
 - [x] Mar 1: Stretch goal: integrate with MovieDB and pull episode data like Img
 - [x] Mar 3: Launched live: https://random-ep.herokuapp.com/
-- [ ] Stretch goal 2: re-factor to support other shows and add an index page
+- [x] Stretch goal 2: re-factor to support other shows and add an index page
+- [ ] Stretch goal 3: launch other shows to production
 
 ## Available Scripts
 - `yarn` or `yarn install` to install all requires dependencies locally
@@ -34,7 +35,7 @@ React.js, JSX, JavaScript, MovieDB API
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
 ## Other shows to add (by request)
-- [ ] The Office
+- [x] The Office
 - [ ] How I met your mother
 - [ ] Gilmore Girls
 - [ ] Parks and Rec
