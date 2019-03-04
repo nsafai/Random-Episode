@@ -24,7 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # added before deploying to Heroku, so only minified JS and CSS will be published to the source folder (which anyone can view using the developer tools.)
-src/*
-public/*
+# src/*
+# public/*
 build/static/css/*.map
 build/static/js/*.map

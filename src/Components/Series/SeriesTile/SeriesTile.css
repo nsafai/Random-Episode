@@ -1,0 +1,26 @@
+.series-tile {
+  /* margin: 5vw; */
+  box-sizing: border-box;
+  font-style: normal;
+  background-color: white;
+  text-decoration: none;
+  box-shadow: 2px 3px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+.series-tile-image {
+  width: 100%;
+  margin: 0;
+}
+
+.series-tile-name {
+  color: #054545;
+  padding: 0.75em 1em;
+  margin: 0;
+  text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+  .series-tile-name {
+    padding: 0.75em;
+  }
+}
