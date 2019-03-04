@@ -43,14 +43,16 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
-          <Link to="/" key='home'>
-            <button>All Series</button>
-          </Link>
-          <h1 style={{ textAlign: "center" }}>Choose a series:</h1>
-          <div className="series-tiles">
-            {seriesTiles}
-          </div>
-          {randomEpisode}
+          <Route exact path="/" key="home" render={() => (
+            <div>
+              <h1 className="page-title">Random Episode</h1>
+              <h2 className="page-subtitle">Choose a show:</h2>
+              <div className="series-tiles">
+                {seriesTiles}
+              </div>
+            </div>
+          )}/>
+          {randomEpisode} {/* contains its own Routes */}
         </div>
       </Router>
     );

@@ -13,13 +13,30 @@ html, body, #root, .App {
   width: 100%;
 }
 
+.page-title {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.page-subtitle {
+  font-size: 2.5em;
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 0.25em;
+  color: #054545;
+}
+
 .series-tiles {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 5vw;
   box-sizing: border-box;
-  padding: 5vw;
+  padding: 0 5vw 2vw 5vw;
+  margin-top: 1.5em;
 }
 
 @media only screen and (max-width: 768px) {
